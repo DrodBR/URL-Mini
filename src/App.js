@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
 import { Switch, Route } from 'react-router-dom'
 import Home from './components/_pages/Home'
-import Redirect from './components/_pages/URL-Shortner/Redirect'
+import Redirect from './components/_pages/URL-Mini/Redirect'
 
 class App extends Component {
   render() {

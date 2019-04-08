@@ -33,7 +33,7 @@ class Redirect extends Component {
             this.setState({
                 errorMsg: error
             })
-            window.location.href = "https://urlshortner-dr.firebaseapp.com/"
+            window.location.href = "https://urlmini.firebaseapp.com/"
         })
     }
 

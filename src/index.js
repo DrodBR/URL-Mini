@@ -7,14 +7,15 @@ import * as firebase from 'firebase'
 import { BrowserRouter } from 'react-router-dom'
 
 var config = {
-    apiKey: "AIzaSyC8RHjl0IGoyuHeunEu0fkm7Tyeps1mkEY",
-    authDomain: "urlshortner-dr.firebaseapp.com",
-    databaseURL: "https://urlshortner-dr.firebaseio.com",
-    projectId: "urlshortner-dr",
-    storageBucket: "",
-    messagingSenderId: "974364789030"
+    apiKey: "AIzaSyDKdVNe4GMp-mkOsvvOcE-vi5K9jjK5pfY",
+    authDomain: "urlmini.firebaseapp.com",
+    databaseURL: "https://urlmini.firebaseio.com",
+    projectId: "urlmini",
+    storageBucket: "urlmini.appspot.com",
+    messagingSenderId: "370497492174"
   };
   firebase.initializeApp(config);
+
 
 
 ReactDOM.render(<BrowserRouter>

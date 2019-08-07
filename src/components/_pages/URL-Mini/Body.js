@@ -1,49 +1,39 @@
-import React, { Component } from 'react'
+/* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useState, useEffect } from 'react'
 import * as firebase from 'firebase'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-// 1 - Verify if this URL is already in database
+const Body = props => {
 
-class Body extends Component {
-    constructor() {
-        super()
-        this.state = {
-            original: "",
-            tinyID: Math.random().toString(36).substring(2, 10),
-            fullURL: "https://urlmini.firebaseapp.com/",
-            submitted: false
-        }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+    const [original, setOriginal] = useState('')
+    const [tinyID, setTinyID] = useState(Math.random().toString(36).substring(2, 10))
+    const [fullURL, setFullURL] = useState('https://urlmini.firebaseapp.com/')
+    const [submitted, setSubmitted] = useState(false)
 
-    // Construct full URL
-    componentDidMount() {
+    useEffect(() => {
+        turnOnPopover()
+        buildCompleteURL()
+    }, [])
 
-        // Turn on PopOver
+    const turnOnPopover = () => {
         window.$('[data-toggle="popover"]').popover();
         window.$('.popover-dismiss').popover({ trigger: 'focus' })
+    }
 
-        const constructFullURL = new Promise((resolve, reject) => {
-            const full = this.state.fullURL + this.state.tinyID
+    const buildCompleteURL = () => {
+        const buildURL = new Promise((resolve, reject) => {
+            const full = fullURL + tinyID
             resolve(full)
         })
-        constructFullURL.then((data) => {
-            this.setState({
-                fullURL: data
-            })
+        buildURL.then((data) => {
+            setFullURL(data)
         }).catch(err => {
             console.log(err);
         })
     }
 
-    componentWillUnmount() {
-        document.title = "Daniel Rodrigues - Portfolio"
-    }
-
-    // Store URL in Firebase
-    storeTiny(upOriginal, upTinyID) {
-
+    const storeTiny = (upOriginal, upTinyID) => {
         // Fix prefix, if necessary        
         var prefix = "http://"
         var prefixs = "https://"
@@ -60,60 +50,58 @@ class Body extends Component {
     }
 
     // Function used when submit button is pressed
-    handleSubmit(event) {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        this.storeTiny(this.state.original, this.state.tinyID)
-        this.setState({
-            submitted: true
-        })
+        storeTiny(original, tinyID)
+        setSubmitted(true)
     }
 
     // Function used when input is inputted
-    handleChange(event) {
-        this.setState({ original: event.target.value })
+    const handleChange = (event) => {
+        setOriginal(event.target.value)
     }
 
     // Require URL largest than 6
-    validURL() {
+    const validURL = () => {
         var isDisabled = true
-        if (this.state.original.length > 6) {
+        if (original.length > 6) {
             isDisabled = false
         }
         return isDisabled
     }
 
-    render() {
-        return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <div class="form-group">
-                        <label>Original URL</label>
-                        <input type="text" value={this.state.original} class="form-control" required="required" onChange={this.handleChange} />
-                    </div>
-                    <button type="submit" data-toggle="collapse" data-target="#createlink" disabled={this.validURL() || this.state.submitted} class="btn btn-secondary">Create</button>
-                </form>
-                <div class="d-flex justify-content-center">
-                    <div class="collapse mt-4 mb-4 col-12 col-lg-6" id="createlink">
-                        <div class="card card-body">
-                            <h5 class="text-center">New Link</h5>
-                            <div class="input-group">
+    let content = (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <div class="form-group">
+                    <label>Original URL</label>
+                    <input type="text" value={original} class="form-control" required="required" onChange={handleChange} />
+                </div>
+                <button type="submit" data-toggle="collapse" data-target="#createlink" disabled={validURL() || submitted} class="btn btn-secondary">Create</button>
+            </form>
+            <div class="d-flex justify-content-center">
+                <div class="collapse mt-4 mb-4 col-12 col-lg-6" id="createlink">
+                    <div class="card card-body">
+                        <h5 class="text-center">New Link</h5>
+                        <div class="input-group">
 
-                                <input type="text" class="form-control" value={this.state.fullURL} />
-                                <CopyToClipboard text={this.state.fullURL}>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><a tabindex="0" class="btn btn-light" role="button" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Copied!">copy</a></span>
-                                    </div>
-                                </CopyToClipboard>
-                            </div>
-                            <h5 class="text-center"><a href={this.state.fullURL} target="_blank" rel="noopener noreferrer">[open]</a></h5><hr />
-                            <a class="btn btn-primary btn-sm" href="./" role="button">Create new link</a>
+                            <input type="text" class="form-control" value={fullURL} />
+                            <CopyToClipboard text={fullURL}>
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><a tabindex="0" class="btn btn-light" role="button" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Copied!">copy</a></span>
+                                </div>
+                            </CopyToClipboard>
                         </div>
+                        <h5 class="text-center"><a href={fullURL} target="_blank" rel="noopener noreferrer">[open]</a></h5><hr />
+                        <a class="btn btn-primary btn-sm" href="./" role="button">Create new link</a>
                     </div>
                 </div>
-                <hr />
-                <code>ReactJS + Firebase</code>
             </div>
-        )
-    }
+            <hr />
+            <code>ReactJS + Firebase</code>
+        </div>
+    )
+
+    return content;
 }
 export default Body

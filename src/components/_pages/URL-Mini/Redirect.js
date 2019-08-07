@@ -1,21 +1,17 @@
-import React, { Component } from 'react'
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react'
 import * as firebase from 'firebase'
 import Title from '../../_layouts/Title'
 
-class Redirect extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            tinyID: this.props.id,
-            errorMsg: ""
-        }
-    }
+const Redirect = props => {
+    const [tinyID, setTinyID] = useState(props.id);
+    const [errorMsg, setErrorMsg] = useState('')
 
-    componentDidMount() {
+    useEffect(() => {
         const getOriginalURL = new Promise((resolve, reject) => {
             var childData = ""
             const rootRef = firebase.database().ref('tinyurl')
-            rootRef.orderByChild('tinyID').equalTo(this.state.tinyID).on("value", snap => {
+            rootRef.orderByChild('tinyID').equalTo(tinyID).on("value", snap => {
                 snap.forEach(function (childSnapshot) {
                     childData = childSnapshot.val().original;
                 })
@@ -28,22 +24,21 @@ class Redirect extends Component {
         })
 
         getOriginalURL.then((data) => {
+            console.log(data)
             window.location.href = data
         }).catch((error) => {
-            this.setState({
-                errorMsg: error
-            })
+            setErrorMsg(error)
             window.location.href = "https://urlmini.firebaseapp.com/"
         })
-    }
+    }, []);
 
-    render() {
-        return (
-            <div>
-                <Title title="Redirecting..." />
-                <h1>{this.state.errorMsg}</h1>
-            </div>
-        )
-    }
+    let content = (
+        <div>
+            <Title title="Redirecting..." />
+            <h1>{errorMsg}</h1>
+        </div>
+    )
+
+    return content;
 }
 export default Redirect

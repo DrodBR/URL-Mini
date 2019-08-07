@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React from 'react'
  
-class Navbar extends Component {
-    render() {
+const Navbar = () => {
         return (
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <a class="navbar-brand" href="#">URL Mini - Daniel F G Rodrigues</a>
@@ -12,6 +12,5 @@ class Navbar extends Component {
                 </div>
             </nav>
         );
-    }
 }
 export default Navbar;

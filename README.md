@@ -2,7 +2,7 @@
 Daniel F G Rodrigues
 
 ## Built With
-* [React.js](https://reactjs.org/) - User Interface Library
+* [React.js](https://reactjs.org/) - User Interface Library (now using Hooks!)
 * [Firebase](http://firebase.com) - Host and Database
 * [Node.js](https://nodejs.org) - JavaScript Runtime Environment
 * [Bootstrap](https://getbootstrap.com/) - Framework

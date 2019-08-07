@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom'
 import Home from './components/_pages/Home'
 import Redirect from './components/_pages/URL-Mini/Redirect'
 
-class App extends Component {
-  render() {
+const App = () => {
     return (
       <Switch>
         <Route exact path='/' render={() => (
@@ -15,6 +14,5 @@ class App extends Component {
         )} />
       </Switch>
     );
-  }
 }
 export default App;

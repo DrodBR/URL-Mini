@@ -1,16 +1,14 @@
-import React, { Component } from 'react'
- 
-class Title extends Component {
- 
-    componentDidMount() {
-        var titlePrefix = "Daniel R. | "
-        document.title = titlePrefix + this.props.title
-    }
- 
-    render() {
-        return(
+import React, { useEffect } from 'react'
+
+const Title = (props) => {
+
+    useEffect(() => {
+        const titlePrefix = "Daniel R. | "
+        document.title = titlePrefix + props.title
+    }, [])
+
+    return (
         <div>
         </div>)
-    }
 }
 export default Title

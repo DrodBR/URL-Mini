@@ -3,7 +3,7 @@ Web application where you enter a large URL and receive a shortened URL that red
 Resulting in content sharing more cleanly and efficiently.
 
 ## Screenshot
-![image](https://i.ibb.co/3rfwMps/pokemongostring.png)
+![image](https://i.ibb.co/y8Xf1PM/Screenshot-2019-11-18-Daniel-R-URL-Mini.png)
 
 ## Demo
 Go to: [https://urlmini.firebaseapp.com/](https://urlmini.firebaseapp.com/)
